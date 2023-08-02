@@ -1,7 +1,12 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using biblioteca.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<bibliotecaContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("bibliotecaContext") ?? throw new InvalidOperationException("Connection string 'bibliotecaContext' not found.")));
 
 var app = builder.Build();
 
